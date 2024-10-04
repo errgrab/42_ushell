@@ -3,8 +3,8 @@ CFLAGS = -Wall -Wextra -Werror -g
 #LDFLAGS = -I$(LIB)
 LDLIBS= -lreadline
 
-all: main.o undr.o
-	$(CC) $(CFLAGS) main.o undr.o -o ushell $(LDLIBS)
+all: main.o
+	$(CC) $(CFLAGS) main.o -o ushell $(LDLIBS)
 
 clean:
 	$(RM) *.o ushell

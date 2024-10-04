@@ -1,4 +1,4 @@
-/*
+#include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
 #include <readline/readline.h>
@@ -6,33 +6,8 @@
 #include <sys/wait.h>
 #include <sys/types.h>
 #include <sys/stat.h>
-*/
 
-#include <stdio.h>
-#define _IMPLEMENTATION
-#include "undr.c"
-
-int main(int ac, char **av)
-{
-	printf(":%d:\n", ac);
-	while (ac > 1)
-	{
-		auto char *c = _strdup(av[--ac]);
-		printf("%s\n", c);
-	}
-	_clean();
-}
-
-/*
-void ft_free(void *p)
-{
-	void **ptr = p;
-	if (*ptr)
-	{
-		free(*ptr);
-		*ptr = NULL;
-	}
-}
+#include "u.h"
 
 void err(char *str)
 {
@@ -46,7 +21,7 @@ int is_builtin(char *str)
 	int i = -1;
 
 	while (builtins[++i])
-		if (str && !ft_strcmp(builtins[i], str))
+		if (str && !_strcmp(builtins[i], str))
 			return (1);
 	return (0);
 }
@@ -64,7 +39,7 @@ int b_exit(int ac, char **av)
 	if (ac == 1)
 		return (exit(0), 1);
 	else if (ac >= 2)
-		return (exit(ft_atoi(av[1])), 1);
+		return (exit(_atoi(av[1])), 1);
 	return (1);
 }
 
@@ -85,31 +60,31 @@ int builtin(char *str, char **av)
 	int i = -1;
 	int ac = ft_argc(av);
 	while (builtins[++i])
-		if (str && !ft_strcmp(builtins[i], str))
+		if (str && !_strcmp(builtins[i], str))
 			return (builtin_fn[i](ac, av));
 	return (0);
 }
 
 char *ft_path(char *str)
 {
-	char **path = ft_split(getenv("PATH"), ":");
+	char **path = _split(getenv("PATH"), ":");
 	int i = -1;
 	while (path[++i])
 	{
-		char *res = ft_calloc(ft_strlen(path[i]) + ft_strlen(str) + 2, 1);
+		char *res = _calloc(_strlen(path[i]) + _strlen(str) + 2, 1);
 		if (!res)
 			return (NULL);
-		ft_stpcpy(ft_stpcpy(ft_stpcpy(res, path[i]), "/"), str);
+		_stpcpy(_stpcpy(_stpcpy(res, path[i]), "/"), str);
 		struct stat buffer = {0};
 		if (stat(res, &buffer) == 0)
 		{
-			ft_freesplit(path);
+			_splitfree(path);
 			return (res);
 		}
-		ft_free(&res);
+		_free(res);
 	}
-	ft_freesplit(path);
-	return (ft_strdup(str));
+	_splitfree(path);
+	return (_strdup(str));
 }
 
 int exec(char **av, char **ev)
@@ -130,29 +105,32 @@ int exec(char **av, char **ev)
 	return (WIFEXITED(status) && WEXITSTATUS(status));
 }
 
-int main(void)
+int main(int ac, char **av, char **envp)
 {
-	char **environ;
+	(void)ac;
+	(void)av;
 	char *input;
 
 	char *user = getenv("USER");
 	char pwd[512] = {0};
-	getcwd(pwd, 512);
 	char prompt[1024] = {0};
-	ft_stpcpy(ft_stpcpy(ft_stpcpy(ft_stpcpy(prompt, user), "@"), pwd), " $ ");
+	_memset(prompt, 0, 1024);
+	getcwd(pwd, 512);
+	_stpcpy(_stpcpy(_stpcpy(_stpcpy(prompt, user), "@"), pwd), " $ ");
 	input = readline(prompt);
 	while (input)
 	{
 		add_history(input);
-		char **av = ft_split(input, " \n\t");
+		char **av = _split(input, " \n\t");
 		exec(av, envp);
-		ft_freesplit(av);
-		ft_free(&input);
-		ft_bzero(prompt, 1024);
+		_splitfree(av);
+		_free(input);
+		_memset(prompt, 0, 1024);
 		getcwd(pwd, 512);
-		ft_stpcpy(ft_stpcpy(ft_stpcpy(ft_stpcpy(prompt, user), "@"), pwd), " $ ");
+		_stpcpy(_stpcpy(_stpcpy(_stpcpy(prompt, user), "@"), pwd), " $ ");
 		input = readline(prompt);
 	}
-	return 0;
+	rl_clear_history();
+	_clean();
+	return (0);
 }
-*/
