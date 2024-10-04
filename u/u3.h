@@ -6,7 +6,7 @@
 /*   By: ecarvalh <ecarvalh@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/04 03:30:24 by ecarvalh          #+#    #+#             */
-/*   Updated: 2024/10/04 15:12:25 by ecarvalh         ###   ########.fr       */
+/*   Updated: 2024/10/04 15:17:33 by ecarvalh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ char	*_readline_fd(const int fd)
 
 void	_sprintf(char *b, const char *f, ...)
 {
-	__builtin_va_list a;
+	auto __builtin_va_list a;
 	__builtin_va_start(a, f);
 	auto const char *p = f;
 	auto char *bp = b;
