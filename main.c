@@ -1,14 +1,29 @@
-#include <stdio.h>
+/*
 #include <stdlib.h>
 #include <unistd.h>
-#include "libft/include/string.h"
-#include "libft/libft.h"
 #include <readline/readline.h>
 #include <readline/history.h>
 #include <sys/wait.h>
 #include <sys/types.h>
 #include <sys/stat.h>
+*/
 
+#include <stdio.h>
+#define _IMPLEMENTATION
+#include "undr.c"
+
+int main(int ac, char **av)
+{
+	printf(":%d:\n", ac);
+	while (ac > 1)
+	{
+		auto char *c = _strdup(av[--ac]);
+		printf("%s\n", c);
+	}
+	_clean();
+}
+
+/*
 void ft_free(void *p)
 {
 	void **ptr = p;
@@ -115,10 +130,9 @@ int exec(char **av, char **ev)
 	return (WIFEXITED(status) && WEXITSTATUS(status));
 }
 
-int main(int argc, char **argv, char **envp)
+int main(void)
 {
-	(void)argc;
-	(void)argv;
+	char **environ;
 	char *input;
 
 	char *user = getenv("USER");
@@ -141,3 +155,4 @@ int main(int argc, char **argv, char **envp)
 	}
 	return 0;
 }
+*/

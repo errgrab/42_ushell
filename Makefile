@@ -1,8 +1,12 @@
+CC = clang
 CFLAGS = -Wall -Wextra -Werror -g
-LDFLAGS = -Ilibft -Llibft
-LDLIBS= -lreadline -lft
+#LDFLAGS = -I$(LIB)
+LDLIBS= -lreadline
 
-lib:
-	@make -sC libft
+all: main.o undr.o
+	$(CC) $(CFLAGS) main.o undr.o -o ushell $(LDLIBS)
 
-.PHONY: lib
+clean:
+	$(RM) *.o ushell
+
+re: clean all
