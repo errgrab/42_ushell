@@ -7,7 +7,7 @@
 #include <sys/types.h>
 #include <sys/stat.h>
 
-#include "u.h"
+#include "u/u.h"
 
 void err(char *str)
 {
@@ -116,7 +116,8 @@ int main(int ac, char **av, char **envp)
 	char prompt[1024] = {0};
 	_memset(prompt, 0, 1024);
 	getcwd(pwd, 512);
-	_stpcpy(_stpcpy(_stpcpy(_stpcpy(prompt, user), "@"), pwd), " $ ");
+	_sprintf(prompt, "[%s@%s] $", user, pwd);
+	exit(1);
 	input = readline(prompt);
 	while (input)
 	{
@@ -127,7 +128,7 @@ int main(int ac, char **av, char **envp)
 		_free(input);
 		_memset(prompt, 0, 1024);
 		getcwd(pwd, 512);
-		_stpcpy(_stpcpy(_stpcpy(_stpcpy(prompt, user), "@"), pwd), " $ ");
+		_sprintf(prompt, "[%s@%s] $", user, pwd);
 		input = readline(prompt);
 	}
 	rl_clear_history();
