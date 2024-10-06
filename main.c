@@ -6,7 +6,7 @@
 /*   By: ecarvalh <ecarvalh@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/04 15:27:06 by ecarvalh          #+#    #+#             */
-/*   Updated: 2024/10/06 02:20:54 by ecarvalh         ###   ########.fr       */
+/*   Updated: 2024/10/06 04:31:50 by ecarvalh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 #include <sys/stat.h>
 #include "u/u.h"
 #include "e.h"
+#include "sh.h"
 
 char	*ft_path(char *str)
 {
@@ -62,28 +63,40 @@ int	exec(char **av, char **ev)
 	return (WIFEXITED(status) && WEXITSTATUS(status));
 }
 
+void	update_prompt(void)
+{
+	const char	*user = getenv("USER");
+
+	g()->pwd = _calloc(32, sizeof(char));
+	getcwd(g()->pwd, 32);
+	_sprintf(g()->prompt, "[%s] %s $ ", user, g()->pwd);
+}
+
+void	init_shell(void)
+{
+	t_shell	*sh;
+
+	sh = g();
+	sh->prompt = _calloc(64, sizeof(char));
+	update_prompt();
+	sh->input = readline(sh->prompt);
+}
+
 int	main(int ac, char **av, char **envp)
 {
-	(void)ac;
-	(void)av;
-	auto char *user = getenv("USER");
-	auto char pwd[512] = {0};
-	auto char prompt[1024] = {0};
-	_memset(prompt, 0, 1024);
-	getcwd(pwd, 512);
-	_sprintf(prompt, "[%s@%s] $ ", user, pwd);
-	auto char *input = readline(prompt);
-	while (input)
+	if (ac > 0)
+		g()->av = &av[1];
+	init_shell();
+	g()->input = readline(g()->prompt);
+	while (g()->input)
 	{
-		add_history(input);
-		auto char **av = _split(input, " \n\t");
+		add_history(g()->input);
+		av = _split(g()->input, " \n\t");
 		exec(av, envp);
 		_splitfree(av);
-		_free(input);
-		_memset(prompt, 0, 1024);
-		getcwd(pwd, 512);
-		_sprintf(prompt, "[%s@%s] $ ", user, pwd);
-		input = readline(prompt);
+		_free(g()->input);
+		update_prompt();
+		g()->input = readline(g()->prompt);
 	}
 	rl_clear_history();
 	_clean();
