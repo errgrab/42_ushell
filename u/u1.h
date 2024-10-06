@@ -6,7 +6,7 @@
 /*   By: ecarvalh <ecarvalh@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/04 01:45:16 by ecarvalh          #+#    #+#             */
-/*   Updated: 2024/10/04 02:56:17 by ecarvalh         ###   ########.fr       */
+/*   Updated: 2024/10/06 02:44:39 by ecarvalh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,17 +23,22 @@ int		_atoi(const char *s);
 
 char	*_strdup(const char *s)
 {
-	auto char *r = _calloc(_strlen(s) + 1, sizeof(char));
+	char	*r;
+
+	r = _calloc(_strlen(s) + 1, sizeof(char));
 	_stpcpy(r, s);
 	return (r);
 }
 
 char	*_strndup(const char *s, const size_t n)
 {
-	auto size_t l = _strlen(s);
+	size_t	l;
+	char	*r;
+
+	l = _strlen(s);
 	if (n < l)
 		l = n;
-	auto char *r = _calloc(l + 1, sizeof(char));
+	r = _calloc(l + 1, sizeof(char));
 	if (!r)
 		return (NULL);
 	r[l] = 0;
@@ -44,7 +49,9 @@ char	*_strndup(const char *s, const size_t n)
 
 int	_strspn(const char *s, const char *a)
 {
-	auto int l = 0;
+	int	l;
+
+	l = 0;
 	while (s[l] && _strchr(a, s[l]))
 		l++;
 	return (l);
@@ -52,7 +59,9 @@ int	_strspn(const char *s, const char *a)
 
 int	_strcspn(const char *s, const char *r)
 {
-	auto int l = 0;
+	int	l;
+
+	l = 0;
 	while (s[l] && !_strchr(r, s[l]))
 		l++;
 	return (l);
@@ -60,7 +69,11 @@ int	_strcspn(const char *s, const char *r)
 
 int	_atoi(const char *s)
 {
-	auto int r = 0, p = 1;
+	int	r;
+	int	p;
+
+	r = 0;
+	p = 1;
 	while (*s && *s >= 9 && *s <= 32)
 		s++;
 	if (*s == '-' || *s == '+')

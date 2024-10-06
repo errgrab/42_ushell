@@ -1,12 +1,16 @@
 CC = clang
 CFLAGS = -Wall -Wextra -Werror -g
 #LDFLAGS = -I$(LIB)
-LDLIBS= -lreadline
+LDLIBS = -lreadline
+NAME = ushell
 
 all: main.o
-	$(CC) $(CFLAGS) main.o -o ushell $(LDLIBS)
+	$(CC) $(CFLAGS) main.o -o $(NAME) $(LDLIBS)
 
 clean:
-	$(RM) *.o ushell
+	$(RM) *.o
 
-re: clean all
+fclean: clean
+	$(RM) $(NAME)
+
+re: fclean all

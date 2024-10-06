@@ -6,7 +6,7 @@
 /*   By: ecarvalh <ecarvalh@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/04 01:25:21 by ecarvalh          #+#    #+#             */
-/*   Updated: 2024/10/04 03:25:24 by ecarvalh         ###   ########.fr       */
+/*   Updated: 2024/10/06 02:52:49 by ecarvalh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,16 +36,21 @@ static t_u_l	**_get_ca(void)
 
 void	*_calloc(const size_t n, const size_t s)
 {
-	auto void *p = malloc(n * s);
+	void	*p;
+	t_u_l	**r;
+	t_u_l	*nn;
+	size_t	i;
+
+	p = malloc(n * s);
 	if (!p)
 		return (NULL);
-	auto t_u_l * nn = (t_u_l *)malloc(sizeof(t_u_l));
+	nn = (t_u_l *)malloc(sizeof(t_u_l));
 	if (!nn)
 		return (free(p), NULL);
-	auto size_t i = n * s;
+	i = n * s;
 	while (i && i--)
 		((char *)p)[i] = 0;
-	auto t_u_l **r = _get_ca();
+	r = _get_ca();
 	nn->d = p;
 	nn->n = *r;
 	*r = nn;
@@ -54,13 +59,17 @@ void	*_calloc(const size_t n, const size_t s)
 
 void	_free(void *p)
 {
-	auto t_u_l **n = _get_ca();
-	auto t_u_l * b = NULL;
+	t_u_l	**n;
+	t_u_l	*b;
+	t_u_l	*d;
+
+	n = _get_ca();
+	b = NULL;
 	while (*n)
 	{
 		if ((*n)->d == p)
 		{
-			auto t_u_l * d = *n;
+			d = *n;
 			if (b)
 				b->n = (*n)->n;
 			else
@@ -76,10 +85,13 @@ void	_free(void *p)
 
 void	_clean(void)
 {
-	auto t_u_l **n = _get_ca();
+	t_u_l	**n;
+	t_u_l	*d;
+
+	n = _get_ca();
 	while (*n)
 	{
-		auto t_u_l * d = *n;
+		d = *n;
 		*n = (*n)->n;
 		free(d->d);
 		free(d);

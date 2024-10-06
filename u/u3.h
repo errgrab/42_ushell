@@ -6,7 +6,7 @@
 /*   By: ecarvalh <ecarvalh@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/04 03:30:24 by ecarvalh          #+#    #+#             */
-/*   Updated: 2024/10/04 15:17:33 by ecarvalh         ###   ########.fr       */
+/*   Updated: 2024/10/06 02:56:15 by ecarvalh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,20 +19,26 @@ void	_sprintf(char *b, const char *f, ...);
 
 char	*_strapnd(const char *d, const char *s)
 {
+	char	*r;
+
 	if (!s)
 		return ((char *)d);
 	if (!d)
 		return (_strdup(s));
-	auto char *r = _calloc(_strlen(d) + _strlen(s) + 1, sizeof(char));
+	r = _calloc(_strlen(d) + _strlen(s) + 1, sizeof(char));
 	_stpcpy(_stpcpy(r, d), s);
 	return (r);
 }
 
 char	*_readline_fd(const int fd)
 {
-	auto char buf[2] = {0};
-	auto char *line = NULL;
-	auto int len = read(fd, &buf, 1);
+	static char	buf[2];
+	char		*line;
+	int			len;
+
+	_memset(buf, 0, 2);
+	line = NULL;
+	len = read(fd, &buf, 1);
 	while (len > 0)
 	{
 		buf[len] = 0;
@@ -48,15 +54,19 @@ char	*_readline_fd(const int fd)
 
 void	_sprintf(char *b, const char *f, ...)
 {
-	auto __builtin_va_list a;
+	__builtin_va_list	a;
+	const char			*p;
+	char				*bp;
+	char				*sa;
+
 	__builtin_va_start(a, f);
-	auto const char *p = f;
-	auto char *bp = b;
+	p = f;
+	bp = b;
 	while (*p)
 	{
 		if (*p == '%' && *(p + 1) == 's')
 		{
-			auto char *sa = __builtin_va_arg(a, char *);
+			sa = __builtin_va_arg(a, char *);
 			bp = _stpcpy(bp, sa);
 			p += 2;
 		}

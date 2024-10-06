@@ -6,7 +6,7 @@
 /*   By: ecarvalh <ecarvalh@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/04 01:35:13 by ecarvalh          #+#    #+#             */
-/*   Updated: 2024/10/04 02:43:08 by ecarvalh         ###   ########.fr       */
+/*   Updated: 2024/10/06 02:42:33 by ecarvalh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,9 @@ void	*_memset(void *s, const int c, size_t n);
 
 int	_strlen(const char *s)
 {
-	auto int l = 0;
+	int	l;
+
+	l = 0;
 	while (s[l])
 		l++;
 	return (l);
