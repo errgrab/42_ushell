@@ -6,7 +6,7 @@
 /*   By: ecarvalh <ecarvalh@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/04 15:27:06 by ecarvalh          #+#    #+#             */
-/*   Updated: 2024/10/06 04:31:50 by ecarvalh         ###   ########.fr       */
+/*   Updated: 2024/10/06 04:35:31 by ecarvalh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,15 +66,17 @@ int	exec(char **av, char **ev)
 void	update_prompt(void)
 {
 	const char	*user = getenv("USER");
+	t_sh		*sh;
 
-	g()->pwd = _calloc(32, sizeof(char));
-	getcwd(g()->pwd, 32);
-	_sprintf(g()->prompt, "[%s] %s $ ", user, g()->pwd);
+	sh = g();
+	sh->pwd = _calloc(32, sizeof(char));
+	getcwd(sh->pwd, 32);
+	_sprintf(sh->prompt, "[%s] %s $ ", user, sh->pwd);
 }
 
 void	init_shell(void)
 {
-	t_shell	*sh;
+	t_sh	*sh;
 
 	sh = g();
 	sh->prompt = _calloc(64, sizeof(char));
@@ -84,19 +86,22 @@ void	init_shell(void)
 
 int	main(int ac, char **av, char **envp)
 {
+	t_sh	*sh;
+
+	sh = g();
 	if (ac > 0)
-		g()->av = &av[1];
+		sh->av = &av[1];
 	init_shell();
-	g()->input = readline(g()->prompt);
-	while (g()->input)
+	sh->input = readline(sh->prompt);
+	while (sh->input)
 	{
-		add_history(g()->input);
-		av = _split(g()->input, " \n\t");
+		add_history(sh->input);
+		av = _split(sh->input, " \n\t");
 		exec(av, envp);
 		_splitfree(av);
-		_free(g()->input);
+		_free(sh->input);
 		update_prompt();
-		g()->input = readline(g()->prompt);
+		sh->input = readline(sh->prompt);
 	}
 	rl_clear_history();
 	_clean();
