@@ -6,7 +6,7 @@
 /*   By: ecarvalh <ecarvalh@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/04 15:27:06 by ecarvalh          #+#    #+#             */
-/*   Updated: 2024/10/06 04:35:31 by ecarvalh         ###   ########.fr       */
+/*   Updated: 2024/10/07 14:38:53 by ecarvalh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,12 +25,15 @@
 char	*ft_path(char *str)
 {
 	struct stat	b;
+	char		**path;
+	int			i;
+	char		*res;
 
-	auto char **path = _split(getenv("PATH"), ":");
-	auto int i = -1;
+	path = _split(getenv("PATH"), ":");
+	i = -1;
 	while (path[++i])
 	{
-		auto char *res = _calloc(_strlen(path[i]) + _strlen(str) + 2, 1);
+		res = _calloc(_strlen(path[i]) + _strlen(str) + 2, 1);
 		if (!res)
 			return (NULL);
 		_sprintf(res, "%s/%s", path[i], str);
@@ -47,10 +50,12 @@ char	*ft_path(char *str)
 
 int	exec(char **av, char **ev)
 {
-	auto int status;
+	int	status;
+	int	pid;
+
 	if (builtin(av[0], av, &status))
 		return (status);
-	auto int pid = fork();
+	pid = fork();
 	if (-1 == pid)
 		return (_err("ERROR\n"), 1);
 	if (!pid)
@@ -92,7 +97,6 @@ int	main(int ac, char **av, char **envp)
 	if (ac > 0)
 		sh->av = &av[1];
 	init_shell();
-	sh->input = readline(sh->prompt);
 	while (sh->input)
 	{
 		add_history(sh->input);
