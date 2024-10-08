@@ -6,7 +6,7 @@
 /*   By: ecarvalh <ecarvalh@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/04 15:27:06 by ecarvalh          #+#    #+#             */
-/*   Updated: 2024/10/07 14:38:53 by ecarvalh         ###   ########.fr       */
+/*   Updated: 2024/10/07 17:06:58 by ecarvalh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,18 +50,21 @@ char	*ft_path(char *str)
 
 int	exec(char **av, char **ev)
 {
-	int	status;
-	int	pid;
+	char	err[64];
+	int		status;
+	int		pid;
 
 	if (builtin(av[0], av, &status))
 		return (status);
 	pid = fork();
 	if (-1 == pid)
-		return (_err("ERROR\n"), 1);
+		return (_sprintf(err, "ushell: %s\n", "could not start process"),
+			_err(err), 1);
 	if (!pid)
 	{
 		execve(ft_path(av[0]), av, ev);
-		_err("ERROR\n");
+		_sprintf(err, "ushell: %s: %s\n", av[0], "command not found");
+		_err(err);
 		exit(1);
 	}
 	waitpid(pid, &status, 0);
@@ -76,6 +79,8 @@ void	update_prompt(void)
 	sh = g();
 	sh->pwd = _calloc(32, sizeof(char));
 	getcwd(sh->pwd, 32);
+	if (!_strcmp(sh->pwd, getenv("HOME")))
+		sh->pwd = "~";
 	_sprintf(sh->prompt, "[%s] %s $ ", user, sh->pwd);
 }
 
