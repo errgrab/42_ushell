@@ -6,7 +6,7 @@
 /*   By: ecarvalh <ecarvalh@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/04 01:35:13 by ecarvalh          #+#    #+#             */
-/*   Updated: 2024/10/06 02:42:33 by ecarvalh         ###   ########.fr       */
+/*   Updated: 2024/10/09 13:19:13 by ecarvalh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ char	*_stpcpy(char *d, const char *s)
 {
 	while (*s)
 		*d++ = *s++;
-	*d = *s;
+	*d = '\0';
 	return (d);
 }
 

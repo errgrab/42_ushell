@@ -6,7 +6,7 @@
 /*   By: ecarvalh <ecarvalh@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/04 03:30:24 by ecarvalh          #+#    #+#             */
-/*   Updated: 2024/10/06 02:56:15 by ecarvalh         ###   ########.fr       */
+/*   Updated: 2024/10/09 13:49:50 by ecarvalh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,8 @@
 
 char	*_strapnd(const char *d, const char *s);
 char	*_readline_fd(const int fd);
-void	_sprintf(char *b, const char *f, ...);
+void	_snprintf(char *b, size_t n, const char *f, ...);
+void	_printffd(const int fd, const char *f, ...);
 
 char	*_strapnd(const char *d, const char *s)
 {
@@ -52,7 +53,7 @@ char	*_readline_fd(const int fd)
 	return (line);
 }
 
-void	_sprintf(char *b, const char *f, ...)
+void	_snprintf(char *b, size_t n, const char *f, ...)
 {
 	__builtin_va_list	a;
 	const char			*p;
@@ -62,7 +63,7 @@ void	_sprintf(char *b, const char *f, ...)
 	__builtin_va_start(a, f);
 	p = f;
 	bp = b;
-	while (*p)
+	while (*p && n--)
 	{
 		if (*p == '%' && *(p + 1) == 's')
 		{
@@ -73,7 +74,29 @@ void	_sprintf(char *b, const char *f, ...)
 		else
 			*bp++ = *p++;
 	}
-	*bp = 0;
+	*bp = '\0';
+	__builtin_va_end(a);
+}
+
+void	_printffd(const int fd, const char *f, ...)
+{
+	__builtin_va_list	a;
+	const char			*p;
+	char				*sa;
+
+	__builtin_va_start(a, f);
+	p = f;
+	while (*p)
+	{
+		if (*p == '%' && *(p + 1) == 's')
+		{
+			sa = __builtin_va_arg(a, char *);
+			_putsfd(fd, sa);
+			p += 2;
+		}
+		else
+			write(fd, p++, 1);
+	}
 	__builtin_va_end(a);
 }
 

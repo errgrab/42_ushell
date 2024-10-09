@@ -6,7 +6,7 @@
 /*   By: ecarvalh <ecarvalh@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/04 15:33:22 by ecarvalh          #+#    #+#             */
-/*   Updated: 2024/10/07 14:35:54 by ecarvalh         ###   ########.fr       */
+/*   Updated: 2024/10/09 13:43:28 by ecarvalh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,14 +31,13 @@ int	b_cd(int ac, char **av)
 	char	*dir;
 
 	if (ac > 2)
-		return (_err("Error: cd: Invalid arguments\n"), 1);
+		return (_printffd(2, "Error: cd: Invalid arguments\n"), 1);
 	else if (ac == 1)
 		dir = getenv("HOME");
 	else
 		dir = av[1];
 	if (-1 == chdir(dir))
-		return (_err("Error: cd: could not change dir to "),
-			_err(av[1]), _err("\n"), 1);
+		return (_printffd(2, "Error: cd: %s: No such directory\n", av[1]), 1);
 	return (1);
 }
 

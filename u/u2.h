@@ -6,7 +6,7 @@
 /*   By: ecarvalh <ecarvalh@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/04 02:07:57 by ecarvalh          #+#    #+#             */
-/*   Updated: 2024/10/06 02:46:37 by ecarvalh         ###   ########.fr       */
+/*   Updated: 2024/10/09 13:43:17 by ecarvalh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,8 @@
 int		_wc(const char *s, const char *d);
 char	**_split(const char *s, const char *d);
 void	_splitfree(char **s);
-void	_err(char *str);
+void	_putsfd(const int fd, const char *s);
+void	_putsnfd(const int fd, const char *s, size_t n);
 
 int	_wc(const char *s, const char *d)
 {
@@ -74,10 +75,16 @@ void	_splitfree(char **s)
 	_free(s);
 }
 
-void	_err(char *str)
+void	_putsfd(const int fd, const char *s)
 {
-	while (*str)
-		write(2, str++, 1);
+	while (*s)
+		write(fd, s++, 1);
+}
+
+void	_putsnfd(const int fd, const char *s, size_t n)
+{
+	while (*s && n--)
+		write(fd, s++, 1);
 }
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: ecarvalh <ecarvalh@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/04 15:27:06 by ecarvalh          #+#    #+#             */
-/*   Updated: 2024/10/07 17:06:58 by ecarvalh         ###   ########.fr       */
+/*   Updated: 2024/10/09 13:48:03 by ecarvalh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,15 +28,17 @@ char	*ft_path(char *str)
 	char		**path;
 	int			i;
 	char		*res;
+	int			len;
 
 	path = _split(getenv("PATH"), ":");
 	i = -1;
 	while (path[++i])
 	{
-		res = _calloc(_strlen(path[i]) + _strlen(str) + 2, 1);
+		len = _strlen(path[i]) + _strlen(str) + 2;
+		res = _calloc(len, 1);
 		if (!res)
 			return (NULL);
-		_sprintf(res, "%s/%s", path[i], str);
+		_snprintf(res, len, "%s/%s", path[i], str);
 		if (stat(res, &b) == 0)
 		{
 			_splitfree(path);
@@ -50,7 +52,6 @@ char	*ft_path(char *str)
 
 int	exec(char **av, char **ev)
 {
-	char	err[64];
 	int		status;
 	int		pid;
 
@@ -58,13 +59,11 @@ int	exec(char **av, char **ev)
 		return (status);
 	pid = fork();
 	if (-1 == pid)
-		return (_sprintf(err, "ushell: %s\n", "could not start process"),
-			_err(err), 1);
+		return (_printffd(2, "Error: Could not start process"), 1);
 	if (!pid)
 	{
 		execve(ft_path(av[0]), av, ev);
-		_sprintf(err, "ushell: %s: %s\n", av[0], "command not found");
-		_err(err);
+		_printffd(2, "Error: %s: Command not found\n", av[0]);
 		exit(1);
 	}
 	waitpid(pid, &status, 0);
@@ -81,7 +80,7 @@ void	update_prompt(void)
 	getcwd(sh->pwd, 32);
 	if (!_strcmp(sh->pwd, getenv("HOME")))
 		sh->pwd = "~";
-	_sprintf(sh->prompt, "[%s] %s $ ", user, sh->pwd);
+	_snprintf(sh->prompt, 64, "[%s] %s $ ", user, sh->pwd);
 }
 
 void	init_shell(void)
