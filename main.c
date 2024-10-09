@@ -6,7 +6,7 @@
 /*   By: ecarvalh <ecarvalh@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/04 15:27:06 by ecarvalh          #+#    #+#             */
-/*   Updated: 2024/10/09 16:25:23 by ecarvalh         ###   ########.fr       */
+/*   Updated: 2024/10/09 16:50:35 by ecarvalh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ void	update_prompt(void)
 	_snprintf(sh->prompt, 64, "[%s] %s $ ", user, sh->pwd);
 }
 
-void	init_shell(void)
+int	init_shell(void)
 {
 	t_sh	*sh;
 
@@ -90,12 +90,10 @@ void	init_shell(void)
 	sh->prompt = _calloc(64, sizeof(char));
 	sh->pwd = _calloc(32, sizeof(char));
 	if (!sh->prompt || !sh->pwd)
-	{
-		_putsfd(2, "Error: Not possible to initialize shell\n");
-		exit(1);
-	}
+		return (_putsfd(2, "Error: Not possible to initialize shell\n"), 1);
 	update_prompt();
 	sh->input = readline(sh->prompt);
+	return (0);
 }
 
 int	main(int ac, char **av, char **envp)
@@ -105,7 +103,8 @@ int	main(int ac, char **av, char **envp)
 	sh = g();
 	if (ac > 0)
 		sh->av = &av[1];
-	init_shell();
+	if (init_shell())
+		return (1);
 	while (sh->input)
 	{
 		add_history(sh->input);
