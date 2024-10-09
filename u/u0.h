@@ -6,24 +6,22 @@
 /*   By: ecarvalh <ecarvalh@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/04 01:35:13 by ecarvalh          #+#    #+#             */
-/*   Updated: 2024/10/09 13:19:13 by ecarvalh         ###   ########.fr       */
+/*   Updated: 2024/10/09 16:31:42 by ecarvalh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef U0_H
 # define U0_H
 
-# include "u.h"
-
-int		_strlen(const char *s);
+size_t	_strlen(const char *s);
 int		_strcmp(const char *s1, const char *s2);
 void	*_strchr(const char *s, const int c);
-char	*_stpcpy(char *d, const char *s);
+char	*_stpncpy(char *d, const char *s, size_t n);
 void	*_memset(void *s, const int c, size_t n);
 
-int	_strlen(const char *s)
+size_t	_strlen(const char *s)
 {
-	int	l;
+	size_t	l;
 
 	l = 0;
 	while (s[l])
@@ -50,9 +48,9 @@ void	*_strchr(const char *s, const int c)
 	return (NULL);
 }
 
-char	*_stpcpy(char *d, const char *s)
+char	*_stpncpy(char *d, const char *s, size_t n)
 {
-	while (*s)
+	while (*s && n && n--)
 		*d++ = *s++;
 	*d = '\0';
 	return (d);

@@ -6,7 +6,7 @@
 /*   By: ecarvalh <ecarvalh@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/04 15:27:06 by ecarvalh          #+#    #+#             */
-/*   Updated: 2024/10/09 13:48:03 by ecarvalh         ###   ########.fr       */
+/*   Updated: 2024/10/09 16:25:23 by ecarvalh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,10 +76,9 @@ void	update_prompt(void)
 	t_sh		*sh;
 
 	sh = g();
-	sh->pwd = _calloc(32, sizeof(char));
 	getcwd(sh->pwd, 32);
 	if (!_strcmp(sh->pwd, getenv("HOME")))
-		sh->pwd = "~";
+		_strlcpy(sh->pwd, "~", 32);
 	_snprintf(sh->prompt, 64, "[%s] %s $ ", user, sh->pwd);
 }
 
@@ -89,6 +88,12 @@ void	init_shell(void)
 
 	sh = g();
 	sh->prompt = _calloc(64, sizeof(char));
+	sh->pwd = _calloc(32, sizeof(char));
+	if (!sh->prompt || !sh->pwd)
+	{
+		_putsfd(2, "Error: Not possible to initialize shell\n");
+		exit(1);
+	}
 	update_prompt();
 	sh->input = readline(sh->prompt);
 }
