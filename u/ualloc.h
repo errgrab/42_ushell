@@ -6,7 +6,7 @@
 /*   By: ecarvalh <ecarvalh@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/04 01:25:21 by ecarvalh          #+#    #+#             */
-/*   Updated: 2024/10/06 02:52:49 by ecarvalh         ###   ########.fr       */
+/*   Updated: 2024/10/09 14:02:46 by ecarvalh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,8 @@
 typedef struct s_u_l	t_u_l;
 struct s_u_l
 {
-	void	*d;
-	t_u_l	*n;
+	void	*data;
+	t_u_l	*next;
 };
 
 void	*_calloc(const size_t n, const size_t s);
@@ -29,72 +29,72 @@ void	_clean(void);
 
 static t_u_l	**_get_ca(void)
 {
-	static t_u_l	*a = NULL;
+	static t_u_l	*ca = NULL;
 
-	return (&a);
+	return (&ca);
 }
 
 void	*_calloc(const size_t n, const size_t s)
 {
-	void	*p;
-	t_u_l	**r;
-	t_u_l	*nn;
-	size_t	i;
+	size_t	len;
+	void	*res;
+	t_u_l	*lnew;
+	t_u_l	**root;
 
-	p = malloc(n * s);
-	if (!p)
+	len = n * s;
+	res = malloc(len);
+	if (!res)
 		return (NULL);
-	nn = (t_u_l *)malloc(sizeof(t_u_l));
-	if (!nn)
-		return (free(p), NULL);
-	i = n * s;
-	while (i && i--)
-		((char *)p)[i] = 0;
-	r = _get_ca();
-	nn->d = p;
-	nn->n = *r;
-	*r = nn;
-	return (p);
+	lnew = (t_u_l *)malloc(sizeof(t_u_l));
+	if (!lnew)
+		return (free(res), NULL);
+	while (len && len--)
+		((char *)res)[len] = 0;
+	root = _get_ca();
+	lnew->data = res;
+	lnew->next = *root;
+	*root = lnew;
+	return (res);
 }
 
 void	_free(void *p)
 {
-	t_u_l	**n;
-	t_u_l	*b;
-	t_u_l	*d;
+	t_u_l	**node;
+	t_u_l	*prev;
+	t_u_l	*del;
 
-	n = _get_ca();
-	b = NULL;
-	while (*n)
+	node = _get_ca();
+	prev = NULL;
+	while (*node)
 	{
-		if ((*n)->d == p)
+		if ((*node)->data == p)
 		{
-			d = *n;
-			if (b)
-				b->n = (*n)->n;
+			del = *node;
+			if (prev)
+				prev->next = (*node)->next;
 			else
-				*n = (*n)->n;
-			free(d->d);
-			free(d);
+				*node = (*node)->next;
+			free(del->data);
+			free(del);
 			return ;
 		}
-		b = *n;
-		n = &(*n)->n;
+		prev = *node;
+		node = &(*node)->next;
 	}
 }
 
 void	_clean(void)
 {
-	t_u_l	**n;
-	t_u_l	*d;
+	t_u_l	**node;
+	t_u_l	*del;
 
-	n = _get_ca();
-	while (*n)
+	node = _get_ca();
+	while (*node)
 	{
-		d = *n;
-		*n = (*n)->n;
-		free(d->d);
-		free(d);
+		del = *node;
+		*node = (*node)->next;
+		free(del->data);
+		free(del);
 	}
 }
 
