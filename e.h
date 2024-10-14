@@ -6,7 +6,7 @@
 /*   By: ecarvalh <ecarvalh@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/04 15:33:22 by ecarvalh          #+#    #+#             */
-/*   Updated: 2024/10/09 13:43:28 by ecarvalh         ###   ########.fr       */
+/*   Updated: 2024/10/12 12:23:37 by ecarvalh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@
 int	b_exit(int ac, char **av);
 int	b_cd(int ac, char **av);
 int	builtin(char *str, char **av, int *status);
+
+# ifdef E_IMPL
 
 int	b_exit(int ac, char **av)
 {
@@ -60,4 +62,5 @@ int	builtin(char *str, char **av, int *status)
 	return (0);
 }
 
-#endif
+# endif // E_IMPL
+#endif // E_H
