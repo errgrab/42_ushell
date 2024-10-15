@@ -6,7 +6,7 @@
 /*   By: ecarvalh <ecarvalh@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/04 03:30:24 by ecarvalh          #+#    #+#             */
-/*   Updated: 2024/10/09 16:45:19 by ecarvalh         ###   ########.fr       */
+/*   Updated: 2024/10/15 04:44:51 by ecarvalh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,7 @@ size_t	_snprintf(char *b, size_t n, const char *f, ...)
 		{
 			sa = __builtin_va_arg(a, char *);
 			b = _stpncpy(b, sa, n);
+			n -= _strnlen(sa, n) - 1;
 			p += 2;
 		}
 		else
@@ -121,4 +122,4 @@ void	_printffd(const int fd, const char *f, ...)
 	__builtin_va_end(a);
 }
 
-#endif
+#endif // U4_H

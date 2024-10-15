@@ -6,7 +6,7 @@
 /*   By: ecarvalh <ecarvalh@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/04 01:49:34 by ecarvalh          #+#    #+#             */
-/*   Updated: 2024/10/12 12:33:25 by ecarvalh         ###   ########.fr       */
+/*   Updated: 2024/10/15 04:04:19 by ecarvalh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 # ifdef U_IMPL
 #  define UALLOC_IMPL
 # endif // U_IMPL
+
 # include "ualloc.h"
 
 # ifdef U_IMPL
@@ -27,13 +28,13 @@
 #  include "u2.h"
 #  include "u3.h"
 #  include "u4.h"
+#  include "u5.h"
 # endif // U_IMPL
-
 
 // u0
 size_t	_strlen(const char *s);
 int		_strcmp(const char *s1, const char *s2);
-void	*_strchr(const char *s, const int c);
+char	*_strchr(const char *s, const int c);
 char	*_stpncpy(char *d, const char *s, size_t n);
 void	*_memset(void *s, const int c, size_t n);
 // u1
@@ -52,11 +53,16 @@ void	_putsnfd(const int fd, const char *s, size_t n);
 size_t	_strnlen(const char *s, size_t n);
 size_t	_strlcpy(char *d, const char *s, size_t n);
 size_t	_strlcat(char *d, const char *s, size_t n);
+void	*_mempcpy(void *d, const void *s, size_t n);
 // u4
 char	*_strapnd(const char *d, const char *s);
 char	*_readline_fd(const int fd);
 void	_putifd(int fd, int i);
 size_t	_snprintf(char *b, size_t n, const char *f, ...);
 void	_printffd(const int fd, const char *f, ...);
+// u5
+t_darr	_darr_new(void);
+void	_darr_put(t_darr *darr, void *ptr);
+void	_darr_free(t_darr *darr);
 
 #endif // U_H

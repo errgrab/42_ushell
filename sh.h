@@ -6,19 +6,12 @@
 /*   By: ecarvalh <ecarvalh@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/06 03:21:23 by ecarvalh          #+#    #+#             */
-/*   Updated: 2024/10/12 12:21:39 by ecarvalh         ###   ########.fr       */
+/*   Updated: 2024/10/15 14:18:32 by ecarvalh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef SH_H
 # define SH_H
-
-typedef struct s_lst	t_lst;
-struct s_lst
-{
-	void	*data;
-	t_lst	*next;
-};
 
 typedef struct s_sh	t_sh;
 struct s_sh
@@ -27,7 +20,9 @@ struct s_sh
 	char	*prompt;
 	char	*input;
 	char	*pwd;
+	int		ac;
 	char	**av;
+	t_darr	parsed;
 };
 
 static t_sh	*g(void)

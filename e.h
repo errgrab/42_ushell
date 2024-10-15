@@ -6,16 +6,17 @@
 /*   By: ecarvalh <ecarvalh@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/04 15:33:22 by ecarvalh          #+#    #+#             */
-/*   Updated: 2024/10/12 12:23:37 by ecarvalh         ###   ########.fr       */
+/*   Updated: 2024/10/15 04:29:46 by ecarvalh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef E_H
 # define E_H
 
-int	b_exit(int ac, char **av);
-int	b_cd(int ac, char **av);
-int	builtin(char *str, char **av, int *status);
+int		b_exit(int ac, char **av);
+int		b_cd(int ac, char **av);
+int		builtin(char *str, char **av, int *status);
+void	_parse(char *input);
 
 # ifdef E_IMPL
 
@@ -60,6 +61,33 @@ int	builtin(char *str, char **av, int *status)
 		if (str && !_strcmp(builtins[i], str))
 			return (*status = builtin_fn[i](ac, av), 1);
 	return (0);
+}
+
+void	_parse(char *input)
+{
+	t_darr	res;
+	size_t	len;
+
+	res = _darr_new();
+	while (*input)
+	{
+		len = 0;
+		input += _strspn(input, " \n\t");
+		while (input[len] && (_strchr("'\"", input[len])
+				|| _strcspn(&input[len], " <|>'\"\n\t")))
+		{
+			if (_strchr("'\"", input[len]))
+				len += _strcspn(&input[len] + 1, (char []){input[len], 0}) + 2;
+			else
+				len += _strcspn(&input[len], " <|>'\"\n\t");
+		}
+		if (!len)
+			len = _strspn(input, "<|>");
+		_darr_put(&res, _strndup(input, len));
+		input += len;
+	}
+	_darr_put(&res, NULL);
+	g()->parsed = res;
 }
 
 # endif // E_IMPL

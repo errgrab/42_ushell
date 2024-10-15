@@ -6,7 +6,7 @@
 /*   By: ecarvalh <ecarvalh@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/04 15:27:06 by ecarvalh          #+#    #+#             */
-/*   Updated: 2024/10/12 17:32:41 by ecarvalh         ###   ########.fr       */
+/*   Updated: 2024/10/15 10:32:08 by ecarvalh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,9 @@
 #include <sys/stat.h>
 #define U_IMPL
 #include "u/u.h"
+#include "sh.h"
 #define E_IMPL
 #include "e.h"
-#include "sh.h"
 
 char	*ft_path(char *str)
 {
@@ -98,47 +98,24 @@ int	init_shell(void)
 	return (0);
 }
 
-void	**_darr_new(size_t cap)
-{
-	size_t *const	arr = _calloc(2 * sizeof(size_t) + cap * sizeof(void *), 1);
-
-	if (!arr)
-		return (NULL);
-	arr[0] = cap;
-	arr[1] = 0;
-	return ((void **)(arr + 2));
-}
-
-void	_darr_push(char ***dar, void *data)
-{
-}
-
-void	_parse(char *input)
-{
-	const char	*op[] = {"|", "<", ">", "<<", ">>", NULL};
-
-	(void)input;
-	exit(69);
-}
-
 int	main(int ac, char **av, char **envp)
 {
 	t_sh	*sh;
 
+	(void)envp;
 	sh = g();
-	if (ac > 0)
-		sh->av = &av[1];
+	sh->ac = ac;
+	sh->av = &av[1];
 	if (init_shell())
 		return (1);
 	while (sh->input)
 	{
 		add_history(sh->input);
 		_parse(sh->input);
-		/*
-		av = _split(sh->input, " \n\t");
-		exec(av, envp);
-		_splitfree(av);
-		*/
+		av = (char **)sh->parsed.data;
+		if (av[0])
+			exec(av, envp);
+		_darr_free(&sh->parsed);
 		_free(sh->input);
 		update_prompt();
 		sh->input = readline(sh->prompt);

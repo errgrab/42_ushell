@@ -1,7 +1,7 @@
 CC		= clang
 NAME	= ushell
 CFLAGS	+= -Wall -Wextra -Werror -g
-#CFLAGS	+= -fsanitize=address
+CFLAGS	+= -fsanitize=address
 LDFLAGS	+=
 LDLIBS	+= -lreadline
 

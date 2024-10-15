@@ -6,7 +6,7 @@
 /*   By: ecarvalh <ecarvalh@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/04 01:25:21 by ecarvalh          #+#    #+#             */
-/*   Updated: 2024/10/12 12:26:50 by ecarvalh         ###   ########.fr       */
+/*   Updated: 2024/10/15 03:03:16 by ecarvalh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	*_calloc(const size_t n, const size_t s);
 void	_free(void *p);
 void	_clean(void);
 
-# ifdef U_ALLOC_IMPL
+# ifdef UALLOC_IMPL
 
 static t_u_l	**_get_ca(void)
 {

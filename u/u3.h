@@ -6,7 +6,7 @@
 /*   By: ecarvalh <ecarvalh@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/09 15:04:06 by ecarvalh          #+#    #+#             */
-/*   Updated: 2024/10/09 15:44:30 by ecarvalh         ###   ########.fr       */
+/*   Updated: 2024/10/15 00:10:19 by ecarvalh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 size_t	_strnlen(const char *s, size_t n);
 size_t	_strlcpy(char *d, const char *s, size_t n);
 size_t	_strlcat(char *d, const char *s, size_t n);
+void	*_mempcpy(void *d, const void *s, size_t n);
 
 size_t	_strnlen(const char *s, size_t n)
 {
@@ -52,6 +53,15 @@ size_t	_strlcat(char *d, const char *s, size_t n)
 	if (l == n)
 		return (l + _strlen(s));
 	return (l + _strlcpy(d + l, s, n - l));
+}
+
+void	*_mempcpy(void *d, const void *s, size_t n)
+{
+	if (!d || !s)
+		return (NULL);
+	while (n--)
+		*(char *)d++ = *(char *)s++;
+	return (d);
 }
 
 #endif
