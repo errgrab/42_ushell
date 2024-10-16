@@ -6,7 +6,7 @@
 /*   By: ecarvalh <ecarvalh@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/04 15:33:22 by ecarvalh          #+#    #+#             */
-/*   Updated: 2024/10/15 04:29:46 by ecarvalh         ###   ########.fr       */
+/*   Updated: 2024/10/16 00:19:41 by ecarvalh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,13 @@ void	_parse(char *input)
 	}
 	_darr_put(&res, NULL);
 	g()->parsed = res;
+	if (res.len)
+	{
+		printf("%zu\n", res.len);
+		size_t i = 0;
+		while (i < res.len)
+			printf("%s\n", (char *)res.data[i++]);
+	}
 }
 
 # endif // E_IMPL
