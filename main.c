@@ -6,7 +6,7 @@
 /*   By: ecarvalh <ecarvalh@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/04 15:27:06 by ecarvalh          #+#    #+#             */
-/*   Updated: 2024/10/16 14:19:17 by ecarvalh         ###   ########.fr       */
+/*   Updated: 2024/10/16 23:46:00 by ecarvalh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,11 +18,11 @@
 #include <sys/wait.h>
 #include <sys/types.h>
 #include <sys/stat.h>
-#define U_IMPL
-#include "u/u.h"
+#define UALLOC_IMPL
+#include "lib/ualloc.h"
+#include "lib/lib.h"
+#define SH
 #include "sh.h"
-#define E_IMPL
-#include "e.h"
 
 char	*ft_path(char *str)
 {
@@ -113,7 +113,7 @@ int	main(int ac, char **av, char **envp)
 		add_history(sh->input);
 		_parse(sh->input);
 		av = (char **)sh->parsed.data;
-		if (av[0])
+		if (av && av[0])
 			exec(av, envp);
 		_darr_free(&sh->parsed);
 		_free(sh->input);

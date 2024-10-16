@@ -1,19 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   u2.h                                               :+:      :+:    :+:   */
+/*   lib2.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ecarvalh <ecarvalh@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/04 02:07:57 by ecarvalh          #+#    #+#             */
-/*   Updated: 2024/10/09 13:43:17 by ecarvalh         ###   ########.fr       */
+/*   Updated: 2024/10/16 23:37:29 by ecarvalh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef U2_H
-# define U2_H
-
-# include "u.h"
+#include "lib.h"
 
 int		_wc(const char *s, const char *d);
 char	**_split(const char *s, const char *d);
@@ -86,5 +83,3 @@ void	_putsnfd(const int fd, const char *s, size_t n)
 	while (*s && n--)
 		write(fd, s++, 1);
 }
-
-#endif

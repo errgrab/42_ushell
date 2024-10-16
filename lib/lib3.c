@@ -1,17 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   u3.h                                               :+:      :+:    :+:   */
+/*   lib3.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ecarvalh <ecarvalh@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/09 15:04:06 by ecarvalh          #+#    #+#             */
-/*   Updated: 2024/10/15 00:10:19 by ecarvalh         ###   ########.fr       */
+/*   Updated: 2024/10/16 23:37:37 by ecarvalh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef U3_H
-# define U3_H
+#include "lib.h"
 
 size_t	_strnlen(const char *s, size_t n);
 size_t	_strlcpy(char *d, const char *s, size_t n);
@@ -63,5 +62,3 @@ void	*_mempcpy(void *d, const void *s, size_t n)
 		*(char *)d++ = *(char *)s++;
 	return (d);
 }
-
-#endif

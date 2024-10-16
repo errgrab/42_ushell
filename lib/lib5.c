@@ -1,25 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   u5.h                                               :+:      :+:    :+:   */
+/*   lib5.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ecarvalh <ecarvalh@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/15 03:25:37 by ecarvalh          #+#    #+#             */
-/*   Updated: 2024/10/15 14:18:23 by ecarvalh         ###   ########.fr       */
+/*   Updated: 2024/10/16 23:38:01 by ecarvalh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef U5_H
-# define U5_H
-
-typedef struct s_darr	t_darr;
-struct s_darr
-{
-	size_t	cap;
-	size_t	len;
-	void	**data;
-};
+#include "lib.h"
 
 t_darr	_darr_new(void);
 void	_darr_put(t_darr *darr, void *ptr);
@@ -60,5 +51,3 @@ void	_darr_free(t_darr *darr)
 	darr->cap = 0;
 	darr->len = 0;
 }
-
-#endif // U5_H

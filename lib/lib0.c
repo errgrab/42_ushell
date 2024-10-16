@@ -1,17 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   u0.h                                               :+:      :+:    :+:   */
+/*   lib0.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ecarvalh <ecarvalh@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/04 01:35:13 by ecarvalh          #+#    #+#             */
-/*   Updated: 2024/10/15 04:43:03 by ecarvalh         ###   ########.fr       */
+/*   Updated: 2024/10/16 23:37:16 by ecarvalh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef U0_H
-# define U0_H
+#include "lib.h"
 
 size_t	_strlen(const char *s);
 int		_strcmp(const char *s1, const char *s2);
@@ -64,5 +63,3 @@ void	*_memset(void *s, const int c, size_t n)
 		*((char *)s + n) = (char)c;
 	return (s);
 }
-
-#endif

@@ -1,17 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   u4.h                                               :+:      :+:    :+:   */
+/*   lib4.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ecarvalh <ecarvalh@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/04 03:30:24 by ecarvalh          #+#    #+#             */
-/*   Updated: 2024/10/15 04:44:51 by ecarvalh         ###   ########.fr       */
+/*   Updated: 2024/10/16 23:37:54 by ecarvalh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef U4_H
-# define U4_H
+#include "lib.h"
 
 char	*_strapnd(const char *d, const char *s);
 char	*_readline_fd(const int fd);
@@ -121,5 +120,3 @@ void	_printffd(const int fd, const char *f, ...)
 	}
 	__builtin_va_end(a);
 }
-
-#endif // U4_H

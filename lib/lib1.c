@@ -1,17 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   u1.h                                               :+:      :+:    :+:   */
+/*   lib1.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ecarvalh <ecarvalh@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/04 01:45:16 by ecarvalh          #+#    #+#             */
-/*   Updated: 2024/10/09 16:39:50 by ecarvalh         ###   ########.fr       */
+/*   Updated: 2024/10/16 23:37:23 by ecarvalh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef U1_H
-# define U1_H
+#include "lib.h"
 
 char	*_strdup(const char *s);
 char	*_strndup(const char *s, const size_t n);
@@ -81,5 +80,3 @@ int	_atoi(const char *s)
 		r = r * 10 + (*s++ - '0');
 	return (p * r);
 }
-
-#endif

@@ -1,24 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   e.h                                                :+:      :+:    :+:   */
+/*   builtin.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ecarvalh <ecarvalh@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/04 15:33:22 by ecarvalh          #+#    #+#             */
-/*   Updated: 2024/10/16 14:19:04 by ecarvalh         ###   ########.fr       */
+/*   Updated: 2024/10/16 23:44:24 by ecarvalh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef E_H
-# define E_H
+#include "sh.h"
+#include "lib/lib.h"
 
 int		b_exit(int ac, char **av);
 int		b_cd(int ac, char **av);
 int		builtin(char *str, char **av, int *status);
 void	_parse(char *input);
-
-# ifdef E_IMPL
 
 int	b_exit(int ac, char **av)
 {
@@ -103,6 +101,3 @@ void	_parse(char *input)
 	_darr_put(&res, NULL);
 	g()->parsed = res;
 }
-
-# endif // E_IMPL
-#endif // E_H
