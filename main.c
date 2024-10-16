@@ -6,7 +6,7 @@
 /*   By: ecarvalh <ecarvalh@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/04 15:27:06 by ecarvalh          #+#    #+#             */
-/*   Updated: 2024/10/16 00:14:36 by ecarvalh         ###   ########.fr       */
+/*   Updated: 2024/10/16 14:19:17 by ecarvalh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,10 +113,8 @@ int	main(int ac, char **av, char **envp)
 		add_history(sh->input);
 		_parse(sh->input);
 		av = (char **)sh->parsed.data;
-		/*
 		if (av[0])
 			exec(av, envp);
-			*/
 		_darr_free(&sh->parsed);
 		_free(sh->input);
 		update_prompt();

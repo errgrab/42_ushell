@@ -6,7 +6,7 @@
 /*   By: ecarvalh <ecarvalh@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/04 15:33:22 by ecarvalh          #+#    #+#             */
-/*   Updated: 2024/10/16 00:19:41 by ecarvalh         ###   ########.fr       */
+/*   Updated: 2024/10/16 14:19:04 by ecarvalh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,29 @@ int	builtin(char *str, char **av, int *status)
 	return (0);
 }
 
+size_t	toklen(char *input)
+{
+	size_t	len;
+	char	*quote;
+
+	len = 0;
+	while (input[len] && (_strchr("'\"", input[len])
+			|| _strcspn(&input[len], " <|>'\"\n\t")))
+	{
+		if (_strchr("'\"", input[len]))
+		{
+			quote = (char []){input[len], 0};
+			len += _strcspn(&input[len] + 1, quote) + 1;
+			len += input[len] == quote[0];
+		}
+		else
+			len += _strcspn(&input[len], " <|>'\"\n\t");
+	}
+	if (!len)
+		len = _strspn(input, "<|>");
+	return (len);
+}
+
 void	_parse(char *input)
 {
 	t_darr	res;
@@ -73,28 +96,12 @@ void	_parse(char *input)
 	{
 		len = 0;
 		input += _strspn(input, " \n\t");
-		while (input[len] && (_strchr("'\"", input[len])
-				|| _strcspn(&input[len], " <|>'\"\n\t")))
-		{
-			if (_strchr("'\"", input[len]))
-				len += _strcspn(&input[len] + 1, (char []){input[len], 0}) + 2;
-			else
-				len += _strcspn(&input[len], " <|>'\"\n\t");
-		}
-		if (!len)
-			len = _strspn(input, "<|>");
+		len = toklen(input);
 		_darr_put(&res, _strndup(input, len));
 		input += len;
 	}
 	_darr_put(&res, NULL);
 	g()->parsed = res;
-	if (res.len)
-	{
-		printf("%zu\n", res.len);
-		size_t i = 0;
-		while (i < res.len)
-			printf("%s\n", (char *)res.data[i++]);
-	}
 }
 
 # endif // E_IMPL
