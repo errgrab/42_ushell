@@ -10,8 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef U_H
-# define U_H
+#ifndef LIB_H
+# define LIB_H
 
 # include <stdlib.h> // size_t
 # include <unistd.h> // write, read, open ... etc
@@ -59,4 +59,4 @@ t_darr	_darr_new(void);
 void	_darr_put(t_darr *darr, void *ptr);
 void	_darr_free(t_darr *darr);
 
-#endif // U_H
+#endif 
