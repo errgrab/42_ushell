@@ -6,7 +6,7 @@
 /*   By: ecarvalh <ecarvalh@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/15 03:25:37 by ecarvalh          #+#    #+#             */
-/*   Updated: 2024/10/16 23:38:01 by ecarvalh         ###   ########.fr       */
+/*   Updated: 2024/10/22 19:07:38 by ecarvalh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 t_darr	_darr_new(void);
 void	_darr_put(t_darr *darr, void *ptr);
+void	_darr_iter(t_darr *darr, void (*fun)(void *));
 void	_darr_free(t_darr *darr);
 
 t_darr	_darr_new(void)
@@ -42,6 +43,17 @@ void	_darr_put(t_darr *darr, void *ptr)
 	}
 	darr->data[darr->len] = ptr;
 	darr->len++;
+}
+
+void	_darr_iter(t_darr *darr, void (*fun)(void *))
+{
+	size_t	len;
+
+	if (!darr || !fun)
+		return ;
+	len = 0;
+	while (len < darr->len)
+		fun(darr->data[len++]);
 }
 
 void	_darr_free(t_darr *darr)

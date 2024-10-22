@@ -6,7 +6,7 @@
 /*   By: ecarvalh <ecarvalh@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/04 01:49:34 by ecarvalh          #+#    #+#             */
-/*   Updated: 2024/10/16 23:23:05 by ecarvalh         ###   ########.fr       */
+/*   Updated: 2024/10/22 18:15:36 by ecarvalh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ size_t	_strnlen(const char *s, size_t n);
 size_t	_strlcpy(char *d, const char *s, size_t n);
 size_t	_strlcat(char *d, const char *s, size_t n);
 void	*_mempcpy(void *d, const void *s, size_t n);
+char	*_strjoin(char *d, const char *s);
 // lib4
 char	*_strapnd(const char *d, const char *s);
 char	*_readline_fd(const int fd);
@@ -57,6 +58,7 @@ void	_printffd(const int fd, const char *f, ...);
 // lib5
 t_darr	_darr_new(void);
 void	_darr_put(t_darr *darr, void *ptr);
+void	_darr_iter(t_darr *darr, void (*fun)(void *));
 void	_darr_free(t_darr *darr);
 
 #endif 
